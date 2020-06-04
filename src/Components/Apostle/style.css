@@ -1,0 +1,18 @@
+.img-container {
+  height: 60%;
+  overflow: hidden;
+  background: #6caddc;
+  background: #fff;
+  border-radius: 2px;
+  height: 100px;
+  margin: 1rem;
+  width: 100px;
+  box-shadow: 0 3px 6px #999, 0 3px 6px #999;
+}
+.img-container > img {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+}
