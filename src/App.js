@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+// import "./App.css";
 import Wrapper from "./Components/Wrapper";
 import ApostleCard from "./Components/Apostle";
 import apostle from "./apostles.json";
@@ -10,11 +10,13 @@ class App extends Component {
   // setting states
   state = {
     score: 0,
+    topScore: 0,
     clicked: [],
-    apostle
+    apostle,
+    title: "Click a picture to start the game!"
   };
 
-  // Fisher-yates Shuffle
+  // Fisher-yates Shuffle used to shuffle apostle array
   shuffleArray = a => {
     for (let i = a.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -22,7 +24,6 @@ class App extends Component {
     }
     return a;
   };
-  // handle increment
 
   // onload?
   componentDidMount() {
@@ -37,13 +38,26 @@ class App extends Component {
       this.setState({
         apostle: this.shuffleArray(this.state.apostle),
         clicked: [],
-        score: 0
+        score: 0,
+        title: "Incorrect Guess, Start Over by clicking another Picture!!"
       });
     } else {
       console.log("aint this one yet");
       this.state.clicked.push(event.target.id);
-      this.setState({ apostle: this.shuffleArray(this.state.apostle) });
-      this.setState({ score: this.state.score + 1 });
+      if (this.state.score + 1 > this.state.topScore) {
+        this.setState({
+          apostle: this.shuffleArray(this.state.apostle),
+          score: this.state.score + 1,
+          title: "You Guessed Correctly!",
+          topScore: this.state.score + 1
+        });
+      } else {
+        this.setState({
+          apostle: this.shuffleArray(this.state.apostle),
+          score: this.state.score + 1,
+          title: "You Guessed Correctly!"
+        });
+      }
     }
   };
 
@@ -52,7 +66,11 @@ class App extends Component {
     return (
       <Wrapper>
         <Header></Header>
-        <Navbar score={this.state.score} />
+        <Navbar
+          score={this.state.score}
+          title={this.state.title}
+          topScore={this.state.topScore}
+        ></Navbar>
         {this.state.apostle.map(apostle => (
           <ApostleCard
             id={apostle.id}
