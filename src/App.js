@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-// import "./App.css";
 import Wrapper from "./Components/Wrapper";
 import ApostleCard from "./Components/Apostle";
 import apostle from "./apostles.json";
 import Navbar from "./Components/Navbar";
 import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 class App extends Component {
   // setting states
@@ -65,7 +65,7 @@ class App extends Component {
   render() {
     return (
       <Wrapper>
-        <Header></Header>
+        <Header />
         <Navbar
           score={this.state.score}
           title={this.state.title}
@@ -80,6 +80,7 @@ class App extends Component {
             onclick={this.picClicked}
           />
         ))}
+        <Footer />
       </Wrapper>
     );
   }
